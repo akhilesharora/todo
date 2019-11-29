@@ -1,0 +1,50 @@
+// This file describes protocol to communicate with Todo server.
+syntax = "proto3";
+
+option go_package = "github.com/akhilesharora/todo/pb";
+
+package todo;
+
+service Todo {
+    rpc CreateNote (CreateNoteMsg) returns (Empty) {}
+    rpc UpdateNote (UpdateNoteMsg) returns (UpdateNoteReply) {}
+    rpc DeleteNote (DeleteNoteMsg) returns (Empty) {}
+    rpc GetAllNotes (Empty) returns (GetAllNotesReply) {}
+}
+
+message Empty {}
+
+message Note {
+    uint32 id = 1;
+    string title = 2;
+    string comments = 3;
+    string due_date = 4;
+}
+
+message GetNoteMsg {
+    uint32 id = 1;
+}
+
+message GetNoteReply {
+    Note note = 1;
+}
+
+message GetAllNotesReply {
+    repeated Note notes = 1;
+}
+
+message CreateNoteMsg {
+    Note note = 1;
+}
+
+message UpdateNoteMsg {
+    Note note = 1;
+}
+
+message UpdateNoteReply {
+    Note note = 1;
+}
+
+message DeleteNoteMsg {
+    uint32 id = 1;
+}
